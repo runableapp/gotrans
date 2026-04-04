@@ -209,6 +209,15 @@ body {
   text-align: center;
 }
 
+.hero-logo {
+  display: block;
+  width: clamp(7rem, 26vw, 12rem);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  margin: 0 auto 1.5rem;
+}
+
 .hero h1 {
   margin: 0 0 1rem;
   font-size: clamp(2rem, 5vw, 2.85rem);
