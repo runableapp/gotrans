@@ -324,21 +324,6 @@ section p a:hover {
   font-size: 0.95rem;
 }
 
-.links-list {
-  margin: 1rem 0 0;
-  padding-left: 1.25rem;
-  color: var(--text-muted);
-}
-
-.links-list a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.links-list a:hover {
-  text-decoration: underline;
-}
-
 /* Code blocks */
 .pre-wrap {
   position: relative;
