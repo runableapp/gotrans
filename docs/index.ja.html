@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja"
+  data-copy-label="コピー"
+  data-copied-label="コピーしました"
+  data-fail-label="選択してコピー">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="gotrans — Go 製の CLI・REST 翻訳ツール（Google、Bing、Yandex、Apertium）。">
+  <title>gotrans · CLI と REST 翻訳</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="polar-support" href="https://buy.polar.sh/polar_cl_REPLACE_WITH_YOUR_POLAR_CHECKOUT_ID" target="_blank" rel="noopener noreferrer" data-polar-checkout data-polar-checkout-theme="dark">オープンソースを支援</a>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.ja.html">go<span>trans</span></a>
+      <div class="header-actions">
+        <div class="lang-switch" role="navigation" aria-label="言語">
+          <a href="index.html">EN</a>
+          <a href="index.ko.html">KO</a>
+          <a href="index.zh.html">中文</a>
+          <a href="index.ja.html">日本語</a>
+        </div>
+        <a class="btn btn-github" href="https://github.com/YOUR_ORG/gotrans" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap">
+        <h1>複数エンジン対応のコマンドライン翻訳</h1>
+        <p class="hero-lead">
+          <strong>gotrans</strong> は translate-shell にインスパイアされた Go 実装です。高速な CLI 出力、任意の REST サービス、Google・Bing・Yandex・Apertium などのバックエンドに対応します。
+        </p>
+        <div class="pill-row">
+          <span class="pill"><strong>CLI</strong> · パイプとスクリプト</span>
+          <span class="pill"><strong>REST</strong> · HTTP API</span>
+          <span class="pill"><strong>チャンク</strong> · 長文</span>
+          <span class="pill"><strong>マルチエンジン</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>作った理由</h2>
+      <p>
+        ターミナル中心の作業にも、信頼できる翻訳ツールが欲しいからです。予測しやすいフラグ、自動化向けの <code>--text</code>、他サービスとつなぐための小さな HTTP 面—ブラウザ一式なしで済ませたい、というニーズに応えます。
+      </p>
+
+      <h2>何か</h2>
+      <p>
+        <strong>gotrans</strong> は <a href="https://github.com/soimort/translate-shell" target="_blank" rel="noopener noreferrer">translate-shell</a> の Go 版で、同じコンセプトをより高度な機能まで広げたものです。1 つのバイナリでシェルから翻訳したり、INI 設定で REST サービスを起動したりできます。エンジンは切り替え可能で、出力は簡潔・詳細・プレーンテキストのみを選べます。長い入力は順番に分割して送るため、プロバイダの上限に引っかかりにくくなります。
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h4>エンジン</h4>
+          <p>Google（既定）、Bing、Yandex、Apertium、自動選択、テスト用 mock。</p>
+        </div>
+        <div class="card">
+          <h4>2 つの動き方</h4>
+          <p>ターミナルで一回翻訳するか、REST API を INI で動かすか。</p>
+        </div>
+        <div class="card">
+          <h4>自動化向き</h4>
+          <p><code>--text</code>、標準入力、<code>-i</code>/<code>-o</code> ファイル、<code>:fr</code> / <code>-t</code> の言語ショートカット。</p>
+        </div>
+      </div>
+
+      <h3>関連リンク</h3>
+      <ul class="links-list">
+        <li><a href="https://github.com/soimort/translate-shell" target="_blank" rel="noopener noreferrer">translate-shell</a> — 元の AWK/Bash プロジェクト</li>
+        <li><a href="https://go.dev/dl/" target="_blank" rel="noopener noreferrer">Go</a> — 1.21 以上</li>
+        <li><a href="https://taskfile.dev/" target="_blank" rel="noopener noreferrer">Task</a> — 任意のビルドツール</li>
+      </ul>
+    </section>
+
+    <section class="wrap">
+      <h2>CLI クイックスタート</h2>
+      <h3>ビルド</h3>
+      <div class="pre-wrap">
+        <pre>go build -o build/gotrans ./cmd/gotrans
+# Task を使う場合、リポジトリルートで:
+task</pre>
+      </div>
+
+      <h3>翻訳</h3>
+      <div class="pre-wrap">
+        <pre>gotrans "Hello, world!"
+gotrans :fr "Hello"
+gotrans -e bing -t es "Good morning"
+echo "pipe me" | gotrans --text -t de
+gotrans -i document.txt -t fr
+gotrans --text -i in.txt -o out.txt -t de</pre>
+      </div>
+
+      <h3>サービス（例）</h3>
+      <div class="pre-wrap">
+        <pre>gotrans --service --init=service-scripts/gotrans.ini</pre>
+      </div>
+      <p class="note">サンプル設定の既定は多くの場合 <strong>localhost:8100</strong> です。INI でホスト・ポート・エンジン・言語を調整してください。</p>
+    </section>
+
+    <section class="wrap">
+      <h2>REST API</h2>
+      <p>サービス起動後、ヘルスチェック、エンジン一覧、言語一覧、翻訳などのエンドポイントが使えます。</p>
+      <div class="api-strip">GET /api/v1/health · POST /api/v1/translate · GET /api/v1/engines · GET /api/v1/languages</div>
+
+      <h3>ヘルスチェック</h3>
+      <div class="pre-wrap">
+        <pre>curl -fsS http://127.0.0.1:8100/api/v1/health</pre>
+      </div>
+
+      <h3>翻訳（JSON）</h3>
+      <div class="pre-wrap">
+        <pre>curl -sS http://127.0.0.1:8100/api/v1/translate \
+  -H 'content-type: application/json' \
+  -d '{"text":"Hello, World!","source_lang":"auto","target_lang":"es","engine":"google"}'</pre>
+      </div>
+    </section>
+
+    <section class="wrap download-cta" aria-labelledby="download-heading">
+      <h2 id="download-heading">ダウンロード</h2>
+      <div class="download-actions">
+        <!-- TODO: 確定した GitHub リポジトリ URL に repo-btn の href を差し替え -->
+        <a class="download-btn" href="https://github.com/YOUR_ORG/gotrans/releases" target="_blank" rel="noopener noreferrer">リリースをダウンロード</a>
+        <a class="repo-btn" href="https://github.com/YOUR_ORG/gotrans" target="_blank" rel="noopener noreferrer" aria-label="GitHub リポジトリ">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.1 0 0 .67-.21 2.2.82a7.48 7.48 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.09.16 1.9.08 2.1.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg>
+          GitHub
+        </a>
+        <a class="support-btn" href="https://buy.polar.sh/polar_cl_REPLACE_WITH_YOUR_POLAR_CHECKOUT_ID" target="_blank" rel="noopener noreferrer" data-polar-checkout data-polar-checkout-theme="dark">オープンソースを支援</a>
+      </div>
+    </section>
+
+    <div class="wrap footer-branding">
+      <hr class="big-line" aria-hidden="true">
+      <img class="footer-image" src="runable-dad-frame-small.webp" alt="runable dad image">
+      <div class="footer-copy">
+        &copy; <span id="copyright-year">2026</span> <a href="https://runable.app" target="_blank" rel="noopener noreferrer">Runable.app</a>. GNU GPL v3
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" defer data-auto-init></script>
+</body>
+</html>

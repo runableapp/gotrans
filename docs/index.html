@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en"
+  data-copy-label="Copy"
+  data-copied-label="Copied"
+  data-fail-label="Select &amp; copy">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="gotrans — Go CLI and REST API for translation (Google, Bing, Yandex, Apertium).">
+  <title>gotrans · CLI &amp; REST translation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Replace polar_cl_… with your checkout ID from Polar -->
+  <a class="polar-support" href="https://buy.polar.sh/polar_cl_REPLACE_WITH_YOUR_POLAR_CHECKOUT_ID" target="_blank" rel="noopener noreferrer" data-polar-checkout data-polar-checkout-theme="dark">Support the project</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">go<span>trans</span></a>
+      <div class="header-actions">
+        <div class="lang-switch" role="navigation" aria-label="Language">
+          <a href="index.html">EN</a>
+          <a href="index.ko.html">KO</a>
+          <a href="index.zh.html">中文</a>
+          <a href="index.ja.html">日本語</a>
+        </div>
+        <a class="btn btn-github" href="https://github.com/YOUR_ORG/gotrans" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap">
+        <h1>Command-line translation with multiple engines</h1>
+        <p class="hero-lead">
+          <strong>gotrans</strong> is a Go implementation inspired by translate-shell: fast CLI output, optional REST service, and pluggable backends including Google, Bing, Yandex, and Apertium.
+        </p>
+        <div class="pill-row">
+          <span class="pill"><strong>CLI</strong> · pipes &amp; scripts</span>
+          <span class="pill"><strong>REST</strong> · HTTP API</span>
+          <span class="pill"><strong>Chunking</strong> · long input</span>
+          <span class="pill"><strong>Multi-engine</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>Why it exists</h2>
+      <p>
+        Terminal-first workflows still deserve solid translation tools: predictable flags, <code>--text</code> for automation, and a small HTTP surface when you need to integrate with other services—without shipping a full browser stack.
+      </p>
+
+      <h2>What it is</h2>
+      <p>
+        <strong>gotrans</strong> is the Go version of <a href="https://github.com/soimort/translate-shell" target="_blank" rel="noopener noreferrer">translate-shell</a>, with a more advanced feature set on top of the same idea: a single binary can translate from the shell or run as a configurable REST service. Engines are swappable; output can be brief, verbose, or plain text only. Large inputs are split into ordered chunks so provider limits are less likely to break long documents.
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h4>Engines</h4>
+          <p>Google (default), Bing, Yandex, Apertium, auto selection, and mock for tests.</p>
+        </div>
+        <div class="card">
+          <h4>Two modes</h4>
+          <p>Run one-off translations in the terminal or start the REST API with an INI config.</p>
+        </div>
+        <div class="card">
+          <h4>Automation-friendly</h4>
+          <p><code>--text</code>, stdin, <code>-i</code>/<code>-o</code> files, and <code>:fr</code> / <code>-t</code> language shortcuts for scripts.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>CLI quick start</h2>
+
+      <h3>Translate</h3>
+      <div class="pre-wrap">
+        <pre>gotrans "Hello, world!"
+gotrans :fr "Hello"
+gotrans -e bing -t es "Good morning"
+echo "pipe me" | gotrans --text -t de
+gotrans -i document.txt -t fr
+gotrans --text -i in.txt -o out.txt -t de</pre>
+      </div>
+
+      <h3>Service (example)</h3>
+      <div class="pre-wrap">
+        <pre>gotrans --service --init=service-scripts/gotrans.ini</pre>
+      </div>
+      <p class="note">Default bind in sample config is often <strong>localhost:8100</strong>. Adjust host, port, engine, and languages in your INI file.</p>
+    </section>
+
+    <section class="wrap">
+      <h2>REST API</h2>
+      <p>With the service running, typical entrypoints include health, engines list, languages list, and translate.</p>
+      <div class="api-strip">GET /api/v1/health · POST /api/v1/translate · GET /api/v1/engines · GET /api/v1/languages</div>
+
+      <h3>Health check</h3>
+      <div class="pre-wrap">
+        <pre>curl -fsS http://127.0.0.1:8100/api/v1/health</pre>
+      </div>
+
+      <h3>Translate (JSON)</h3>
+      <div class="pre-wrap">
+        <pre>curl -sS http://127.0.0.1:8100/api/v1/translate \
+  -H 'content-type: application/json' \
+  -d '{"text":"Hello, World!","source_lang":"auto","target_lang":"es","engine":"google"}'</pre>
+      </div>
+    </section>
+
+    <section class="wrap download-cta" aria-labelledby="download-heading">
+      <h2 id="download-heading">Download</h2>
+      <div class="download-actions">
+        <a class="download-btn" href="https://github.com/YOUR_ORG/gotrans/releases" target="_blank" rel="noopener noreferrer">Download</a>
+
+        <a class="support-btn" href="https://buy.polar.sh/polar_cl_REPLACE_WITH_YOUR_POLAR_CHECKOUT_ID" target="_blank" rel="noopener noreferrer" data-polar-checkout data-polar-checkout-theme="dark">Support the project</a>
+      </div>
+    </section>
+
+    <div class="wrap footer-branding">
+      <hr class="big-line" aria-hidden="true">
+      <img class="footer-image" src="runable-dad-frame-small.webp" alt="runable dad image">
+      <div class="footer-copy">
+        &copy; <span id="copyright-year">2026</span> <a href="https://runable.app" target="_blank" rel="noopener noreferrer">Runable.app</a>  All rights reserved.
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" defer data-auto-init></script>
+</body>
+</html>

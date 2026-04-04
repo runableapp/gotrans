@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko"
+  data-copy-label="복사"
+  data-copied-label="복사됨"
+  data-fail-label="직접 선택 후 복사">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="gotrans — Go로 만든 CLI·REST 번역 도구 (Google, Bing, Yandex, Apertium).">
+  <title>gotrans · CLI 및 REST 번역 툴</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="polar-support" href="https://buy.polar.sh/polar_cl_REPLACE_WITH_YOUR_POLAR_CHECKOUT_ID" target="_blank" rel="noopener noreferrer" data-polar-checkout data-polar-checkout-theme="dark">프로젝트 후원하기</a>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.ko.html">go<span>trans</span></a>
+      <div class="header-actions">
+        <div class="lang-switch" role="navigation" aria-label="언어">
+          <a href="index.html">EN</a>
+          <a href="index.ko.html">KO</a>
+          <a href="index.zh.html">中文</a>
+          <a href="index.ja.html">日本語</a>
+        </div>
+        <a class="btn btn-github" href="https://github.com/YOUR_ORG/gotrans" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap">
+        <h1>터미널 및 REST API를 통한 번역 툴</h1>
+        <p class="hero-lead">
+          <strong>gotrans</strong>는 translate-shell에서 영감을 받은 Go 구현입니다. 빠른 CLI 출력, 또는 서비스로 사용하여 REST API를 지원합니다.
+        </p>
+        <div class="pill-row">
+          <span class="pill"><strong>CLI</strong> · 파이프·스크립트</span>
+          <span class="pill"><strong>REST</strong> · HTTP API</span>
+          <span class="pill"><strong>청크</strong> · 긴 입력</span>
+          <span class="pill"><strong>멀티 엔진</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <h2>왜 만들었나요</h2>
+      <p>
+        터미널 중심 작업에도 번역 도구가 필요합니다. 예측 가능한 플래그, 자동화용 <code>--text</code>, 그리고 다른 서비스와 붙일 때 쓸 작은 HTTP 계층—브라우저 스택 없이 빠르게 번역할 수 있습니다.
+      </p>
+
+      <h2>무엇인가요</h2>
+      <p>
+        <strong>gotrans</strong>는 <a href="https://github.com/soimort/translate-shell" target="_blank" rel="noopener noreferrer">translate-shell</a>의 Go 구현으로, 같은 목표 위에 더 발전된 기능을 더했습니다. 하나의 바이너리로 셸에서 바로 번역하거나 INI 설정으로 REST 서비스를 띄울 수 있고, 엔진을 바꿀 수 있으며 출력은 간단·상세·순수 텍스트만 선택할 수 있습니다. 긴 입력은 순서대로 잘라 보내 제공자 한도를 넘기 어렵게 합니다.
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h4>엔진</h4>
+          <p>Google, Bing, Yandex, Apertium, 자동 선택, 테스트용 mock.</p>
+        </div>
+        <div class="card">
+          <h4>두 가지 방식</h4>
+          <p>터미널에서 한 번에 번역하거나, REST API를 INI로 구동합니다.</p>
+        </div>
+        <div class="card">
+          <h4>자동화</h4>
+          <p><code>--text</code>, 표준 입력, <code>-i</code>/<code>-o</code> 파일, <code>:fr</code> / <code>-t</code> 언어 단축.</p>
+        </div>
+      </div>
+
+      <h3>관련 링크</h3>
+      <ul class="links-list">
+        <li><a href="https://go.dev/dl/" target="_blank" rel="noopener noreferrer">Go</a> — 1.21 이상</li>
+        <li><a href="https://taskfile.dev/" target="_blank" rel="noopener noreferrer">Task</a> — 선택 빌드 도구</li>
+      </ul>
+    </section>
+
+    <section class="wrap">
+      <h2>CLI 빠른 시작</h2>
+
+      <h3>번역</h3>
+      <div class="pre-wrap">
+        <pre>gotrans "Hello, world!"
+gotrans :fr "Hello"
+gotrans -e bing -t es "Good morning"
+echo "pipe me" | gotrans --text -t de
+gotrans -i document.txt -t fr
+gotrans --text -i in.txt -o out.txt -t de</pre>
+      </div>
+
+      <h3>서비스 (예시)</h3>
+      <div class="pre-wrap">
+        <pre>gotrans --service --init=service-scripts/gotrans.ini</pre>
+      </div>
+      <p class="note">샘플 설정의 기본 바인딩은 보통 <strong>localhost:8100</strong>입니다. INI에서 호스트·포트·엔진·언어를 조정하세요.</p>
+    </section>
+
+    <section class="wrap">
+      <h2>REST API</h2>
+      <p>서비스가 떠 있으면 헬스, 엔진 목록, 언어 목록, 번역 등 엔드포인트를 사용할 수 있습니다.</p>
+      <div class="api-strip">GET /api/v1/health · POST /api/v1/translate · GET /api/v1/engines · GET /api/v1/languages</div>
+
+      <h3>헬스 확인</h3>
+      <div class="pre-wrap">
+        <pre>curl -fsS http://127.0.0.1:8100/api/v1/health</pre>
+      </div>
+
+      <h3>번역 (JSON)</h3>
+      <div class="pre-wrap">
+        <pre>curl -sS http://127.0.0.1:8100/api/v1/translate \
+  -H 'content-type: application/json' \
+  -d '{"text":"Hello, World!","source_lang":"auto","target_lang":"es","engine":"google"}'</pre>
+      </div>
+    </section>
+
+    <section class="wrap download-cta" aria-labelledby="download-heading">
+      <h2 id="download-heading">다운로드</h2>
+      <div class="download-actions">
+        <!-- TODO: repo-btn 최종 GitHub 저장소 URL로 변경 -->
+        <a class="download-btn" href="https://github.com/YOUR_ORG/gotrans/releases" target="_blank" rel="noopener noreferrer">다운로드</a>
+
+        <a class="support-btn" href="https://buy.polar.sh/polar_cl_REPLACE_WITH_YOUR_POLAR_CHECKOUT_ID" target="_blank" rel="noopener noreferrer" data-polar-checkout data-polar-checkout-theme="dark">프로젝트 후원하기</a>
+      </div>
+    </section>
+
+    <div class="wrap footer-branding">
+      <hr class="big-line" aria-hidden="true">
+      <img class="footer-image" src="runable-dad-frame-small.webp" alt="runable dad image">
+      <div class="footer-copy">
+        &copy; <span id="copyright-year">2026</span> <a href="https://runable.app" target="_blank" rel="noopener noreferrer">Runable.app</a>. GNU GPL v3
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js" defer data-auto-init></script>
+</body>
+</html>
