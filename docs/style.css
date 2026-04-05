@@ -174,35 +174,6 @@ body {
   background: var(--accent);
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.9rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  font-family: inherit;
-  text-decoration: none;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn-github {
-  color: var(--text);
-  background: var(--bg-elevated);
-  border-color: var(--border);
-}
-
-.btn-github:hover {
-  border-color: var(--text-muted);
-}
-
 /* Hero */
 .hero {
   padding-block: 3.5rem 2rem;
